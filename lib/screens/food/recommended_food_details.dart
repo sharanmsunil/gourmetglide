@@ -1,34 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gourmetglide/controllers/recommended_product_controller.dart';
+import 'package:gourmetglide/routes/route_helper.dart';
+import 'package:gourmetglide/utils/app-constants/app_constants.dart';
 import 'package:gourmetglide/utils/colors.dart';
 import 'package:gourmetglide/utils/dimensions.dart';
 import 'package:gourmetglide/widgets/appicon.dart';
 import 'package:gourmetglide/widgets/big_text.dart';
 import 'package:gourmetglide/widgets/expandable_text_widget.dart';
 
-class FullFoodDetails extends StatelessWidget {
-  const FullFoodDetails({super.key});
+class RecommendedFoodDetail extends StatelessWidget {
+  final int pageId;
+  const RecommendedFoodDetail({super.key, required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+    var product = Get.find<RecommendedProductController>().recommendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             pinned: true,
             backgroundColor: AppColors.yellowColor,
             expandedHeight: 300,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcon(icon: Icons.clear),
+                GestureDetector(
+                    onTap: (){
+                      Get.toNamed(RouteHelper.homePage);
+                    },
+                    child: AppIcon(icon: Icons.clear)),
                 AppIcon(icon: Icons.shopping_cart_outlined),
               ],
             ),
             toolbarHeight: Dimensions.height45+35,
             bottom: PreferredSize(preferredSize: Size.fromHeight(20),
                 child: Container(
-                  child: Center(child: BigText(text: "Kerala Porota",size: Dimensions.font26-2,)),
+                  child: Center(child: BigText(text: product.name!,size: Dimensions.font26-2,)),
                   width: double.maxFinite,
                   padding: EdgeInsets.only(top: Dimensions.height10-5,bottom: Dimensions.height10),
                   decoration: BoxDecoration(
@@ -40,7 +51,7 @@ class FullFoodDetails extends StatelessWidget {
                   ),
             )),
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset("assets/image/food0.png",
+              background: Image.network(AppConstants.BASE_URL+AppConstants.UPLOAD_URI+product.img!,
               width: double.maxFinite,fit: BoxFit.cover,),
             ),
           ),
@@ -49,7 +60,7 @@ class FullFoodDetails extends StatelessWidget {
               children: [
                 Container(
                   margin: EdgeInsets.only(left: Dimensions.width20,right: Dimensions.width20),
-                  child: ExpandableTextWidget(text: "Parotta or Porotta is a layered Indian and Sri Lankan flatbread made from Maida or Atta, alternatively known as flaky ribbon pancake. It is very common in the Indian states of Kerala and Tamil Nadu and widely available in other states like Karnataka and Maharashtra and countries like Malaysia, the United Arab Emirates and Sri Lanka.Porottas are often available as street food and in restaurants. In some places it is also served at weddings, religious festivals and feasts. It is prepared by kneading maida/wheat flour, egg (in some recipes), oil or ghee and water. The dough is beaten into thin layers and later forming a round spiralled into a ball using these thin layers. The ball is rolled flat and pan-fried. It is often served with a meat curry, such as chicken, goat, beef, or lamb.it is a famous dish in Kerala Parotta or Porotta is a layered Indian and Sri Lankan flatbread made from Maida or Atta, alternatively known as flaky ribbon pancake. It is very common in the Indian states of Kerala and Tamil Nadu and widely available in other states like Karnataka and Maharashtra and countries like Malaysia, the United Arab Emirates and Sri Lanka.Porottas are often available as street food and in restaurants. In some places it is also served at weddings, religious festivals and feasts. It is prepared by kneading maida/wheat flour, egg (in some recipes), oil or ghee and water. The dough is beaten into thin layers and later forming a round spiralled into a ball using these thin layers. The ball is rolled flat and pan-fried. It is often served with a meat curry, such as chicken, goat, beef, or lamb.it is a famous dish in Kerala"),
+                  child: ExpandableTextWidget(text: product.description!),
                 )
               ],
             )
@@ -70,7 +81,7 @@ class FullFoodDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AppIcon(icon: Icons.remove,iconColor: Colors.white,bgColor: AppColors.mainColor,iconSize: Dimensions.iconSize24,),
-                 BigText(text: " \$12.88 "+" X "+" 0 ",color: AppColors.mainBlackColor,size: Dimensions.font26,),
+                 BigText(text: " \$${product.price!} X  0 ",color: AppColors.mainBlackColor,size: Dimensions.font26,),
                 AppIcon(icon: Icons.add,iconColor: Colors.white,bgColor: AppColors.mainColor,iconSize: Dimensions.iconSize24,),
               ],
             ),
@@ -107,14 +118,14 @@ class FullFoodDetails extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.only(
-                      top: Dimensions.height20,bottom: Dimensions.height20,
+                      top: Dimensions.height15,bottom: Dimensions.height15,
                       left: Dimensions.width20,right: Dimensions.width20
                   ),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(Dimensions.radius20),
                       color: AppColors.mainColor
                   ),
-                  child: BigText(text: "\$10 | Add to cart",color: Colors.white,),
+                  child: BigText(text: "\$${product.price!} | Add to cart",color: Colors.white,),
                 )
               ],
             ),

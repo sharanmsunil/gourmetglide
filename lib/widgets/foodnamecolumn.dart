@@ -5,9 +5,9 @@ import 'package:gourmetglide/widgets/big_text.dart';
 import 'package:gourmetglide/widgets/icon_and_text_widget.dart';
 import 'package:gourmetglide/widgets/small_text.dart';
 
-class FoodNameColumn extends StatelessWidget {
+class AppColumn extends StatelessWidget {
   final String text;
-  const FoodNameColumn({super.key, required this.text});
+  const AppColumn({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {

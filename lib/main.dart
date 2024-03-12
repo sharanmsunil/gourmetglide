@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gourmetglide/controllers/popular_product_controller.dart';
 import 'package:gourmetglide/controllers/recommended_product_controller.dart';
-import 'package:gourmetglide/screens/food/fullfooddetails.dart';
-import 'package:gourmetglide/screens/home/food_page_body.dart';
+import 'package:gourmetglide/routes/route_helper.dart';
 import 'package:gourmetglide/screens/home/main_food_page.dart';
 import 'helper/dependencies.dart' as dep;
 
@@ -25,12 +24,10 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue
-      ),
-      // home: FullFoodDetails(),
-      home: MainFoodPage(),
-      // home: FoodDetail(),
+
+      home: const MainFoodPage(),
+      initialRoute: RouteHelper.initial,
+      getPages: RouteHelper.routes,
     );
   }
 }
